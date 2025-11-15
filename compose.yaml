@@ -1,0 +1,36 @@
+---
+services:
+
+############################
+# ONLYOFFICE
+############################
+
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice
+    ports:
+      - 8081:80
+    volumes:
+      - ./onlyoffice/logs:/var/log/onlyoffice
+      - ./onlyoffice/data:/var/www/onlyoffice/Data
+      - ./onlyoffice/lib:/var/lib/onlyoffice
+      - ./onlyoffice/db:/var/lib/postgresql
+    environment:
+      - REDIS_SERVER=nextcloud_redis
+      - REDIS_SERVER_PORT=6379
+      - JWT_ENABLED=true
+      - JWT_SECRET=ouiEqa94Bf
+      - JWT_HEADER=Authorization
+    restart: unless-stopped
+
+############################
+# CLOUDFLARED
+############################
+
+  nextcloud-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: nextcloud-tunnel
+    environment:
+      - TZ=America/New_York
+    command: tunnel --no-autoupdate run --token eyJhIjoiODA3NzcxNjBhOTEwMDFhNWVkMGZkMDQyMTA3NWU3YTQiLCJ0IjoiZDFmNzhjODgtNTZmOC00ZTVmLWE3YjgtZjVhMGNlZmJkOGQ5IiwicyI6IlptSmlaR05oTVdZdFpHTXpNaTAwTkRKaUxUZ3haVFl0TWpBM09ERXlNRFkwWTJaayJ9
+    restart: unless-stopped
