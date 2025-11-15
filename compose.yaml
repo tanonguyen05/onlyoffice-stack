@@ -27,9 +27,9 @@ services:
 # CLOUDFLARED
 ############################
 
-  nextcloud-tunnel:
+  onlyoffice-tunnel:
     image: cloudflare/cloudflared:latest
-    container_name: nextcloud-tunnel
+    container_name: onlyoffice-tunnel
     environment:
       - TZ=America/New_York
     command: tunnel --no-autoupdate run --token eyJhIjoiODA3NzcxNjBhOTEwMDFhNWVkMGZkMDQyMTA3NWU3YTQiLCJ0IjoiZDFmNzhjODgtNTZmOC00ZTVmLWE3YjgtZjVhMGNlZmJkOGQ5IiwicyI6IlptSmlaR05oTVdZdFpHTXpNaTAwTkRKaUxUZ3haVFl0TWpBM09ERXlNRFkwWTJaayJ9
